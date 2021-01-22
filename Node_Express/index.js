@@ -14,6 +14,8 @@ app.engine('hbs', hbs.engine) //Регистрируем в express что ес�
 app.set('view engine', 'hbs') // Начинаем использовать
 app.set('views', 'views') //Тут хранятся шаблоны
 
+app.use(express.static('public'))
+
 // Обработать GET запрос
 app.get('/', (req, res) => {
   //res.status(200)
