@@ -2,7 +2,9 @@
  const path = require('path')
  const app = express() //app будет являтся аналогом сервера
  const exphbs = require('express-handlebars')
-// //const { mainModule } = require('process')
+ const homeRoutes = require('./routes/home') 
+ const addRoutes = require('./routes/add')
+ const coursesRoutes = require('./routes/courses')
 
 
 const hbs = exphbs.create({
@@ -15,20 +17,10 @@ app.set('view engine', 'hbs') // Начинаем использовать
 app.set('views', 'views') //Тут хранятся шаблоны
 
 app.use(express.static('public'))
-
-// Обработать GET запрос
-app.get('/', (req, res) => {
-  //res.status(200)
-  res.render('index')
-  //res.sendFile(path.join(__dirname, 'views', 'index.html'))
-})
-
-app.get('/about', (req, res)=> {
-    //res.status(200)
-    res.render('about')
-   // res.sendFile(path.join(__dirname, 'views', 'about.html'))
-})
-
+app.use(express.urlencoded({extended: true}))
+app.use('/',homeRoutes)
+app.use('/add',addRoutes)
+app.use('/courses',coursesRoutes)
 
 
 const PORT = process.env.PORT || 3000
