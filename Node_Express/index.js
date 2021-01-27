@@ -7,6 +7,7 @@ const cardRoutes = require('./routes/card')
 const addRoutes = require('./routes/add')
 const coursesRoutes = require('./routes/courses')
 
+
 const app = express()
 
 const hbs = exphbs.create({
@@ -30,8 +31,12 @@ const PORT = process.env.PORT || 3000
 
 async function start () {
   try{
-    const url = `mongodb+srv://Yevhenii:69jYDFauqgXAMDN@cluster0.j89wu.mongodb.net/<dbname>?retryWrites=true&w=majority`
-    await mongoose.connect(url, {useNewUrlParser:true}) 
+    const url = `mongodb+srv://Yevhenii:69jYDFauqgXAMDN@cluster0.j89wu.mongodb.net/shop`
+    await mongoose.connect(url, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useFindAndModify: false
+    }) 
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`)
     })
