@@ -20,6 +20,10 @@ const toDate = date => {
   document.querySelectorAll('.price').forEach(node => {
     node.textContent = toCurrency(node.textContent)
   })
+
+  document.querySelectorAll('.date').forEach(node => {
+    node.textContent = toDate(node.textContent)
+  })
   
   const $card = document.querySelector('#card')
   if ($card) {
@@ -53,3 +57,5 @@ const toDate = date => {
       
     })
   } 
+
+  M.Tabs.init(document.querySelectorAll('.tabs'))
