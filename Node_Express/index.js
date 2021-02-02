@@ -25,15 +25,15 @@ app.engine('hbs', hbs.engine)
 app.set('view engine', 'hbs')
 app.set('views', 'views')
 
-app.use(async (req, res, next) => {
-   try{
-     const user = await User.findById('60116d4d1e3b9e0df019eae1')
-     req.user = user
-     next()
-   }catch(e){
-     console.log(e)
-   }
-})
+// app.use(async (req, res, next) => {
+//    try{
+//      const user = await User.findById('60116d4d1e3b9e0df019eae1')
+//      req.user = user
+//      next()
+//    }catch(e){
+//      console.log(e)
+//    }
+// })
 
 app.use(express.static(path.join(__dirname,'public')))
 app.use(express.urlencoded({extended: true}))
@@ -62,15 +62,15 @@ async function start () {
       useUnifiedTopology: true,
       useFindAndModify: false
     }) 
-    const candidate = await User.findOne() 
-    if(!candidate){
-      const user = new User({
-        email: 'yevhenii@gmail.com',
-        name: 'Yevhenii',
-        cart: {items: []}
-      }) 
-      await user.save()
-    }
+    // const candidate = await User.findOne() 
+    // if(!candidate){
+    //   const user = new User({
+    //     email: 'yevhenii@gmail.com',
+    //     name: 'Yevhenii',
+    //     cart: {items: []}
+    //   }) 
+    //   await user.save()
+    // }
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`)
     })
