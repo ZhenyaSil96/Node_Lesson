@@ -1,7 +1,16 @@
 const {Router} = require('express')
 // const { model } = require('mongoose')
+const nodemailer = require('nodemailer')
+const sendgrid = require('nodemailer-sendgrid-transport')
 const router = Router()
-const User = require('../models/user') 
+const User = require('../models/user')
+const keys = require('../keys') 
+const regEmail = ('../emails/registration')
+
+const transporter = nodemailer.createTransport(sendgrid({
+  auth: {api_key: keys.SENDGRID_API_KEY}
+}))
+
 
 router.get('/login', async(req, res) => {
   res.render('auth/login', {
@@ -60,9 +69,12 @@ router.post('/register', async (req, res) => {
       })
       await user.save()
       res.redirect('/auth/login#login')
+      await transporter.sendMail(regEmail(email))
+     
     }
   }catch(e){
     console.log(e)
   }
 })
 module.exports = router
+
