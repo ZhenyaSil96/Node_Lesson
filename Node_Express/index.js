@@ -72,6 +72,3 @@ async function start () {
 start()
 
 //const password = '69jYDFauqgXAMDN'
-
-
-

@@ -1,5 +1,6 @@
 const {Router} = require('express')
 // const { model } = require('mongoose')
+const {body,validationResult} = require('express-validator/check')
 const nodemailer = require('nodemailer')
 const sendgrid = require('nodemailer-sendgrid-transport')
 const router = Router()
@@ -56,10 +57,15 @@ router.post('/login', async(req, res) => {
   }
 })
 
-router.post('/register', async (req, res) => {
+router.post('/register', body('email').isEmail(), async (req, res) => {
   try{
-    const {email, password, repaet, name} = req.body
+    const {email, password, confirm, name} = req.body
     const candidate = await User.findOne({email})
+    const errors = validationResult(req)
+    if(errors.isEmpty()) {
+      req.flash('registerError', errors.array()[0].msg)
+      return res.status(422).redirect('/auth/login#register')
+    }
 
     if(candidate) {
        res.redirect('/auth/login#register')
@@ -77,4 +83,3 @@ router.post('/register', async (req, res) => {
   }
 })
 module.exports = router
-
