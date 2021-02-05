@@ -14,6 +14,7 @@ const User = require('./models/user')
 const varMiddleware = require('./middleware/variables')
 const userMiddleware = require('./middleware/user')
 const keys = require('./keys')
+const errorHandler = require('./middleware/error')
 
 //const MONGODB_URI = `mongodb+srv://Yevhenii:69jYDFauqgXAMDN@cluster0.j89wu.mongodb.net/shop`
 
@@ -51,6 +52,7 @@ app.use('/courses', coursesRoutes)
 app.use('/card', cardRoutes)
 app.use('/orders', ordersRoutes)
 app.use('/auth', authRoutes)
+app.use(errorHandler)
 
 const PORT = process.env.PORT || 3000
 
