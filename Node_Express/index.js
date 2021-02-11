@@ -1,6 +1,8 @@
 const express = require('express')
 const path = require('path')
 const mongoose = require('mongoose')
+//const helmet = require('helmet')
+//const compression = require('compression')
 const exphbs = require('express-handlebars')
 const session = require('express-session')
 const MongoStore = require('connect-mongodb-session')(session)
@@ -44,6 +46,8 @@ app.use(session({
   store:store
 }))
 
+//app.use(helmet())
+//app.use(compression())
 app.use(varMiddleware)
 app.use(userMiddleware)
 
