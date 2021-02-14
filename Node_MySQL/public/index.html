@@ -76,6 +76,7 @@
                     <v-checkbox
                       v-if="!todo.done"
                       v-model="todo.done"
+                      @v-change ="completeTodo(todo.id)"
                       :dark="isDark"
                     ></v-checkbox>
                   </v-list-tile-action>
