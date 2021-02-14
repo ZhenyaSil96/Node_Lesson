@@ -84,7 +84,8 @@
                       {{todo.title | capitalize}}
                     </v-list-tile-title>
                     <v-list-tile-sub-title>
-                      Добавлено в: {{todo.date | date}}
+                      Добавлено в: {{todo.createdAt | date(true)}}
+                      (изменено ({todo.updatedAt | date(true)}))
                     </v-list-tile-sub-title>
                   </v-list-tile-content>
                   <v-btn icon ripple color="red" @click="removeTodo(todo.id)">
@@ -105,5 +106,6 @@
 <!-- <script src="https://cdn.jsdelivr.net/npm/vuetify@1.5.24/"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.5.2/vuetify.js"></script>
 <script src="/app.js"></script>
+<!-- <script src="/app.js"></script> -->
 </body>
 </html>
