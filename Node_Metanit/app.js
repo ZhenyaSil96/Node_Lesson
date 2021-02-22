@@ -18,11 +18,27 @@ server.listen(3000, () => {                       // Запуск сервера
 ///////////////////////////////////////////////////
 
 const os = require('os')
+const greeting = require('./greeting')
+const User = require('./user')
+const Car = require('./car')
+
+let user = new User('Yevgenii', 25)
+user.sayHi()
+console.log(user.name)
+
+let car = new Car('Marka','Toyta', 'Model','Camry')
+console.log(car)
+
+
 let userName = os.userInfo().username
 console.log(userName)
+console.log(`Дата запроса ${greeting.date}`)
+console.log(greeting.getMessage(userName))
+
+
 
 ////////////////////////////////////////////////////
 
-const greeting = require('./greeting')
+
 
 
