@@ -21,21 +21,29 @@ const os = require('os')
 const greeting = require('./greeting')
 const User = require('./user')
 const Car = require('./car')
+const welcome = require('./welcome')
+
 
 let user = new User('Yevgenii', 25)
 user.sayHi()
-console.log(user.name)
+global.console.log(user.name)
 
 let car = new Car('Marka','Toyta', 'Model','Camry')
 console.log(car)
 
+welcome.getMorningMessage()
+welcome.getEvningMessage()
 
 let userName = os.userInfo().username
 console.log(userName)
 console.log(`Дата запроса ${greeting.date}`)
 console.log(greeting.getMessage(userName))
 
+let nodePath = process.argv[0]
+let appPath = process.argv[1]
 
+console.log('nodePath:'+ nodePath)
+console.log('appPath:'+ appPath)
 
 ////////////////////////////////////////////////////
 

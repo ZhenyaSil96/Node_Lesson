@@ -1,6 +1,7 @@
 const http = require('http')
 const express = require('express') // Получаем модуль express
 const server = express() // создаем приложение
+const Emmitter = require('events')
 
 const fs = require('fs')
 
@@ -25,10 +26,10 @@ const fs = require('fs')
 // })
 
 
-server.get('/', function (req, res) {
-    res.end('Hello from Express')
-})
-server.listen(3000)
+// server.get('/', function (req, res) {
+//     res.end('Hello from Express')
+// })
+// server.listen(3000)
 
 //////////////////////////////////
 //////Асинхронность///////////////
@@ -70,25 +71,47 @@ console.log(file)
 
 //Асинхронное чтение из файла
 
-let fileH = fs.readFile('h.txt', 'utf8', 
-    function (err, data) {
-        console.log('Асинхронное чтение из файлов ')
-        if (err) throw console.log(`Error: ${err}`)
-        // Чтение из файла
-        console.log(data)
-    })
+// let fileH = fs.readFile('h.txt', 'utf8', 
+//     function (err, data) {
+//         console.log('Асинхронное чтение из файлов ')
+//         if (err) throw console.log(`Error: ${err}`)
+//         // Чтение из файла
+//         console.log(data)
+//     })
 //////////////////////////////////////////////////
 
 //////Запись в файл ///////////////////////////////
 
-let fileWriteFile = fs.writeFile('file.txt','Метод создает строку URL запроса от заданного obj перебирая «собственных свойств» объекта.',
-                        function(err) {
-                            if (err) throw err
-                            console.log('Асинхронная запись в файл')
-                            let data1 = fs.readFileSync('file.txt')
-                            console.log(data1)
-                        })
+// let fileWriteFile = fs.writeFile('file.txt','Метод создает строку URL запроса от заданного obj перебирая «собственных свойств» объекта.',
+//                         function(err) {
+//                             if (err) throw err
+//                             console.log('Асинхронная запись в файл')
+//                             let data1 = fs.readFileSync('file.txt')
+//                             console.log(data1)
+//                         })
 
-fileWriteFile = fs.appendFileSync('file.txt', 'Метод добавления appendFileSync')
-fileWriteFile = fs.readFileSync('file.txt', 'utf8')
-console.log(fileWriteFile)
+// fileWriteFile = fs.appendFileSync('file.txt', 'Метод добавления appendFileSync')
+// fileWriteFile = fs.readFileSync('file.txt', 'utf8')
+// console.log(fileWriteFile)
+
+//////////////////Обработчик///////////////////////////////
+
+// let emitter = new Emmitter()
+// let eventName = 'greet'
+// emitter.on(eventName, function(){
+//     console.log('Hello all')
+// })
+// emitter.on(eventName, function (){
+//     console.log('Всем привет')
+// })
+
+// emitter.emit(eventName)
+//////////////////////////////////////////
+
+//////Pipe///////////
+/////Скопировали с файла h.txt в файл some.txt 
+let readableStream = fs.createReadStream('h.txt', 'utf8')
+let writeStream = fs.createWriteStream('some.txt')
+readableStream.on('data', function (chunk) {
+    writeStream.write(chunk)
+})
