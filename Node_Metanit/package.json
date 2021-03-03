@@ -1,0 +1,14 @@
+{
+  "name": "node_metanit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "appServer.js",
+  "scripts": {
+    "dev": "nodemon appServer.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
