@@ -90,27 +90,39 @@
 // app.listen(3000)
 ///////////////////////////////////////////
 
+// const express = require('express')
+// const app = express()
+// app.get('/', (req, res) => {
+//   res.end('<h1>Start</h1>')
+// })
+
+// app.use('/home/bar',(req, res) => {
+//   res.sendStatus(404)
+// })
+
+// app.use('/home/tent', (req, res) => {
+//   res.send('<h1>Start 2 </h1>')
+// })
+
+// app.use('/homes', (req, res) => {
+//   res.send(['Tom', 'Sam'])
+// })
+
+// app.use(express.static(__dirname+ '/public'))
+// app.use("/pub", function(request, response){
+     
+//   response.send("<h1>Главная страница</h1>");
+// });
+// app.listen(3000)
+///////////////////////////////////////////////////
+
 const express = require('express')
 const app = express()
-app.get('/', (req, res) => {
-  res.end('<h1>Start</h1>')
-})
 
-app.use('/home/bar',(req, res) => {
-  res.sendStatus(404)
+app.use('/home', (req, res) => {
+  res.redirect('about')
 })
-
-app.use('/home/tent', (req, res) => {
-  res.send('<h1>Start 2 </h1>')
+app.use('/about', (req, res) => {
+  res.send('<h1>This is about</h1>')
 })
-
-app.use('/homes', (req, res) => {
-  res.send(['Tom', 'Sam'])
-})
-
-app.use(express.static(__dirname+ '/public'))
-app.use("/pub", function(request, response){
-     
-  response.send("<h1>Главная страница</h1>");
-});
 app.listen(3000)
