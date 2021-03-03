@@ -129,6 +129,27 @@
 
 /////////////////////////////////////////////////////////
 
+const express = require('express')
+const app = express()
+const prodRouter = express.Router()
+
+prodRouter.use('/create', (req, res) => {
+  res.send('Добавление товара')
+})
+prodRouter.use('/:id', (req, res) => {
+  res.send(`Товар ${req.params.id}`)
+})
+prodRouter.use('/', (req, res) => {
+  res.send('Список товара')
+})
+app.use('/product', prodRouter)
+app.use('/about', (req, res) => {
+  res.send('О сайте')
+})
+app.use('/', (req, res) => {
+  res.send('Главная страница')
+})
+app.listen(3000)
 
 
 
