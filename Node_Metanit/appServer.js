@@ -116,13 +116,20 @@
 // app.listen(3000)
 ///////////////////////////////////////////////////
 
-const express = require('express')
-const app = express()
+// const express = require('express')
+// const app = express()
 
-app.use('/home', (req, res) => {
-  res.redirect('about')
-})
-app.use('/about', (req, res) => {
-  res.send('<h1>This is about</h1>')
-})
-app.listen(3000)
+// app.use('/home', (req, res) => {
+//   res.redirect('about')
+// })
+// app.use('/about', (req, res) => {
+//   res.send('<h1>This is about</h1>')
+// })
+// app.listen(3000)
+
+/////////////////////////////////////////////////////////
+
+
+
+
+///////////////////////////////////////////////////////////////
