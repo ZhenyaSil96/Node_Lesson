@@ -58,42 +58,74 @@
 // })
 /////////////////////////////////////////////////////////////////////////////
 
+// const mongoose = require('mongoose')
+// const Schema = mongoose.Schema
+
+// //Установка схемы 
+
+// const userSchema = new Schema({
+//     name: String,
+//     age: Number
+// })
+
+// //Подключение 
+
+// mongoose.connect("mongodb://localhost:27017/usersdb", {useUnifiedTopology: true, useNewUrlParser: true})
+
+// const User = mongoose.model('User', userSchema)
+// const user = new User(
+//     {
+//       name: 'Tomass',
+//       age: 45
+//     })
+// const user1 = new User(
+//     {
+//         name: 'Ilya',
+//         age: 25
+//     }
+// )
+
+// user.save(function (err){
+//     mongoose.disconnect() //Отключение от базы даных 
+
+//     if(err) return console.log(err)
+//     console.log('Сохранен объект', user)
+// })
+
+// user1.save((err) => {
+//     mongoose.disconnect()
+//     if (err) return console.log(err)
+//     console.log("Save user1", user1)
+// })
+
+////////////////////////////////////////////////////
+
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-
-//Установка схемы 
 
 const userSchema = new Schema({
     name: String,
     age: Number
 })
 
-//Подключение 
-
-mongoose.connect("mongodb://localhost:27017/usersdb", {useUnifiedTopology: true, useNewUrlParser: true})
+mongoose.connect("mongodb://localhost:27017/usersdb", { useUnifiedTopology: true, useNewUrlParser: true });
 
 const User = mongoose.model('User', userSchema)
-const user = new User(
-    {
-      name: 'Tomass',
-      age: 45
-    })
-const user1 = new User(
-    {
-        name: 'Ilya',
-        age: 25
-    }
-)
-
-user.save(function (err){
-    mongoose.disconnect() //Отключение от базы даных 
-
+User.find({name: 'Tom'}, (err, docs)=> {
+    mongoose.disconnect()
     if(err) return console.log(err)
-    console.log('Сохранен объект', user)
+    console.log(docs)
+
+})
+User.deleteOne({name: 'Bill'}, (err, doc)=> {
+    mongoose.disconnect()
+    if(err) return console.log(err)
+    console.log(doc)
+
 })
 
-user1.save((err) => {
+User.updateOne({name:'Tomass'}, {name: 'Tomas Cat'}, (err ,result)=> {
     mongoose.disconnect()
-    if (err) return console.log(err)
-    console.log("Save user1", user1)
+    if(err) return console.log(err)
+    console.log(result)
 })
