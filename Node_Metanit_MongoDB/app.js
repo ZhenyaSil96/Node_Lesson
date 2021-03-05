@@ -100,32 +100,99 @@
 
 ////////////////////////////////////////////////////
 
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+// const mongoose = require('mongoose')
+// const Schema = mongoose.Schema
 
-const userSchema = new Schema({
-    name: String,
-    age: Number
+// const userSchema = new Schema({
+//     name: String,
+//     age: Number
+// })
+
+// mongoose.connect("mongodb://localhost:27017/usersdb", { useUnifiedTopology: true, useNewUrlParser: true });
+
+// const User = mongoose.model('User', userSchema)
+// User.find({name: 'Tom'}, (err, docs)=> {
+//     mongoose.disconnect()
+//     if(err) return console.log(err)
+//     console.log(docs)
+
+// })
+// User.deleteOne({name: 'Bill'}, (err, doc)=> {
+//     mongoose.disconnect()
+//     if(err) return console.log(err)
+//     console.log(doc)
+
+// })
+
+// User.updateOne({name:'Tomass'}, {name: 'Tomas Cat'}, (err ,result)=> {
+//     mongoose.disconnect()
+//     if(err) return console.log(err)
+//     console.log(result)
+// })
+////////////////////////Express and Mongoose////////////////////////////////////////////////////////
+
+const mongoose = require("mongoose");
+const express = require("express");
+const Schema = mongoose.Schema;
+const app = express();
+const jsonParser = express.json();
+ 
+const userScheme = new Schema({name: String, age: Number}, {versionKey: false});
+const User = mongoose.model("User", userScheme);
+ 
+// app.use(express.static(__dirname + "/public"));
+ 
+mongoose.connect("mongodb://localhost:27017/usersdb", { useUnifiedTopology: true, useNewUrlParser: true, useFindAndModify: false }, function(err){
+    if(err) return console.log(err);
+    app.listen(3000, function(){
+        console.log("Сервер ожидает подключения...");
+    });
+});
+  
+
+
+app.get("/api/users", function(req, res){
+        
+    User.find({}, function(err, users){
+ 
+        if(err) return console.log(err);
+        res.send(users)
+    });
+});
+
+app.post('/api/users', (req, res) => {
+    if(!req.body) return res.sendStatus(404)
+    const userName = req.body.name
+    const userAge = req.body.age
+    const user2 = new User({
+    name: 'Alex',
+    age: 14
 })
 
-mongoose.connect("mongodb://localhost:27017/usersdb", { useUnifiedTopology: true, useNewUrlParser: true });
-
-const User = mongoose.model('User', userSchema)
-User.find({name: 'Tom'}, (err, docs)=> {
-    mongoose.disconnect()
-    if(err) return console.log(err)
-    console.log(docs)
-
-})
-User.deleteOne({name: 'Bill'}, (err, doc)=> {
-    mongoose.disconnect()
-    if(err) return console.log(err)
-    console.log(doc)
-
+    user.save((err) => {
+        if(err) return console.log(err)
+        res.send(user2)
+    })
 })
 
-User.updateOne({name:'Tomass'}, {name: 'Tomas Cat'}, (err ,result)=> {
-    mongoose.disconnect()
-    if(err) return console.log(err)
-    console.log(result)
-})
+app.post("/api/users", jsonParser, function (req, res) {
+        
+    if(!req.body) return res.sendStatus(400);
+        
+    const userName = req.body.name;
+    const userAge = req.body.age;
+    const user = new User({name: userName, age: userAge});
+        
+    user.save(function(err){
+        if(err) return console.log(err);
+        res.send(user);
+    });
+});
+app.get("/api/users", function(req, res){
+        
+    User.find({}, function(err, users){
+ 
+        if(err) return console.log(err);
+        res.send(users)
+    });
+});
